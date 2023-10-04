@@ -92,6 +92,8 @@ function styleTaskInput(isChecked: boolean, $taskInput: HTMLInputElement) {
 	}
 }
 
+let isEditing: boolean = false;
+
 // functions to update tasks list
 function createTask(task: ITask): void {
 	const $task = document.createElement('li');
@@ -114,34 +116,40 @@ function createTask(task: ITask): void {
 	$taskInput.classList.add('task__input');
 	$taskInput.value = task.title;
 	$taskInput.disabled = true;
+	$taskInput.spellcheck = false;
 	styleTaskInput($taskCheckbox.checked, $taskInput);
 	$taskInput.addEventListener('blur', taskInputBlurHandler);
-	$taskInput.addEventListener('submit', taskInputBlurHandler);
 	function taskInputBlurHandler() {
-		if ($taskInput.value) {
-			$taskInput.disabled = true;
-			styleTaskInput($taskCheckbox.checked, $taskInput);
-			$editTaskButton.classList.remove('task__edit-button--highlight');
-			task.title = $taskInput.value;
-			saveTasksToLocalStorage();
-		} else {
-			$taskInput.focus();
-		}
-	}
-
-	const $editTaskButton = document.createElement('button');
-	$editTaskButton.classList.add('task__edit-button');
-	$editTaskButton.innerHTML = editIcon;
-	$editTaskButton.addEventListener('click', editTaskButtonClickHandler);
-	function editTaskButtonClickHandler(): void {
-		$editTaskButton.classList.add('task__edit-button--highlight');
-		$taskInput.classList.remove('task__input--checked');
-		$taskInput.disabled = false;
 		$taskInput.focus();
 	}
 
+	const $editTaskButton = document.createElement('button');
+	$editTaskButton.classList.add('task__button');
+	$editTaskButton.innerHTML = editIcon;
+	$editTaskButton.addEventListener('click', editTaskButtonClickHandler);
+	function editTaskButtonClickHandler(): void {
+		if (!isEditing) {
+			$editTaskButton.classList.add('task__button--highlight');
+			$taskInput.classList.remove('task__input--checked');
+			$taskInput.disabled = false;
+			$taskInput.focus();
+			isEditing = true;
+		} else {
+			if ($taskInput.value) {
+				$taskInput.disabled = true;
+				styleTaskInput($taskCheckbox.checked, $taskInput);
+				$editTaskButton.classList.remove('task__button--highlight');
+				task.title = $taskInput.value;
+				saveTasksToLocalStorage();
+				isEditing = false;
+			} else {
+				$taskInput.focus();
+			}
+		}
+	}
+
 	const $removeTaskButton = document.createElement('button');
-	$removeTaskButton.classList.add('task__remove-button');
+	$removeTaskButton.classList.add('task__button');
 	$removeTaskButton.innerHTML = removeIcon;
 	$removeTaskButton.addEventListener('click', removeTaskButtonClickHandler);
 	function removeTaskButtonClickHandler(): void {
@@ -149,7 +157,6 @@ function createTask(task: ITask): void {
 		saveTasksToLocalStorage();
 		$taskCheckbox.removeEventListener('change', taskCheckboxClickHandler);
 		$taskInput.removeEventListener('blur', taskInputBlurHandler);
-		$taskInput.removeEventListener('submit', taskInputBlurHandler);
 		$removeTaskButton.removeEventListener('click', removeTaskButtonClickHandler);
 		$task.remove();
 	}

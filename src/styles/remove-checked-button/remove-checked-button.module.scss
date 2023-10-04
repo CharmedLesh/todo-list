@@ -1,0 +1,28 @@
+.remove-checked-button {
+	position: relative;
+	font-size: 14px;
+	font-weight: 300;
+	color: $light;
+	display: flex;
+	align-items: flex-end;
+	padding: 8px 32px 8px 24px;
+
+	&__icon {
+		position: absolute;
+		right: 8px;
+		fill: $light;
+	}
+
+	&:active {
+		outline: 2px solid $gray;
+	}
+
+	@media (min-width: 768px) {
+		font-size: 16px;
+
+		svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+}

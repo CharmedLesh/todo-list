@@ -1,0 +1,30 @@
+.app {
+	border: 2px solid $accent;
+	padding: 0px 34px 16px;
+	background-color: $light;
+
+	&__title {
+		font-family: $noto-sans;
+		text-align: center;
+		font-weight: 800;
+		color: $dark;
+		letter-spacing: -1px;
+		margin: 16px 0px;
+		text-shadow: $accent 0px 0 2px;
+	}
+
+	&__toolbar {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+
+		@media (min-width: 768px) {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	}
+
+	@media (min-width: 768px) {
+		width: 618px;
+	}
+}
