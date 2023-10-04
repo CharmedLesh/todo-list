@@ -1,0 +1,218 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;800&family=Roboto&display=swap");
+:root {
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #55a1c7;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+ul {
+  list-style: none;
+  margin: 0px;
+}
+ul li {
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background-color: #55a1c7;
+}
+
+.app {
+  border: 2px solid #499dc2;
+  width: 618px;
+  padding: 0px 34px 16px;
+  background-color: #fcfcfc;
+}
+.app__title {
+  font-family: "Noto Sans", sans-serif;
+  text-align: center;
+  font-weight: 800;
+  color: #545653;
+  letter-spacing: -1px;
+  margin: 16px 0px;
+  text-shadow: #499dc2 0px 0 2px;
+}
+.app__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.create-task {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.create-task__input {
+  width: calc(100% - 60px);
+  padding: 12.6px 0px;
+  font-size: 20px;
+  text-align: center;
+  border: 1px solid #55a1c7;
+}
+.create-task__input::-moz-placeholder {
+  color: #a8aaa7;
+  font-style: italic;
+}
+.create-task__input::placeholder {
+  color: #a8aaa7;
+  font-style: italic;
+}
+.create-task__input:focus {
+  outline: 2px solid #55a1c7;
+}
+.create-task__input:focus::-moz-placeholder {
+  color: transparent;
+}
+.create-task__input:focus::placeholder {
+  color: transparent;
+}
+.create-task__button {
+  width: 50px;
+  height: 50px;
+  color: #fcfcfc;
+  font-size: 20px;
+}
+.create-task__button:active {
+  outline: 2px solid #a8aaa7;
+}
+
+.progressbar {
+  position: relative;
+  border: 1px solid #a8aaa7;
+  width: 250px;
+  height: 32px;
+}
+.progressbar__progress {
+  position: absolute;
+  height: 100%;
+  background-color: #97e44b;
+  z-index: 1;
+  transition: 200ms;
+}
+.progressbar__text {
+  margin: 0px;
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #6c6f64;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.progressbar__number {
+  color: #545653;
+}
+
+.remove-checked-button {
+  position: relative;
+  font-size: 16px;
+  font-weight: 300;
+  color: #fcfcfc;
+  display: flex;
+  align-items: flex-end;
+  padding: 8px 32px 8px 24px;
+}
+.remove-checked-button__icon {
+  position: absolute;
+  right: 8px;
+  fill: #fcfcfc;
+}
+.remove-checked-button:active {
+  outline: 2px solid #a8aaa7;
+}
+
+.task-list {
+  padding: 10px 0px 30px 0px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  border-top: 1px solid #a8aaa7;
+  background-color: #f9fdff;
+  transition: 200ms;
+}
+.task--checked {
+  background-color: #eaf7ff;
+}
+.task:nth-last-child(1) {
+  border-bottom: 1px solid #a8aaa7;
+}
+.task__checkbox {
+  width: 5%;
+  margin: 0px;
+  height: 16px;
+  cursor: pointer;
+}
+.task__checkbox:active, .task__checkbox:focus {
+  outline: none;
+}
+.task__input {
+  width: 85%;
+  border: none;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #499dc2;
+  background-color: #fcfcfc;
+  padding: 4px;
+}
+.task__input--checked {
+  text-decoration: line-through;
+  background-color: transparent;
+}
+.task__input:focus {
+  outline: none;
+}
+.task__edit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  width: 5%;
+  background-color: transparent;
+  fill: #8fafc5;
+}
+.task__edit-button:focus, .task__edit-button:active {
+  fill: #499dc2;
+  outline: none;
+}
+.task__edit-button--highlight {
+  fill: #499dc2;
+}
+.task__remove-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  width: 5%;
+  background-color: transparent;
+  fill: #8fafc5;
+}
+.task__remove-button:focus, .task__remove-button:active {
+  fill: #499dc2;
+  outline: none;
+}/*# sourceMappingURL=index.css.map */
