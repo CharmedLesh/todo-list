@@ -255,4 +255,7 @@ button {
   cursor: pointer;
   border: none;
   background-color: #55a1c7;
+}
+button:disabled {
+  cursor: not-allowed;
 }/*# sourceMappingURL=index.css.map */

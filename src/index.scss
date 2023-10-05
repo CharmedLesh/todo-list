@@ -36,4 +36,8 @@ button {
 	cursor: pointer;
 	border: none;
 	background-color: $accent-secondary;
+
+	&:disabled {
+		cursor: not-allowed;
+	}
 }
