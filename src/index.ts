@@ -6,25 +6,51 @@ interface ITask {
 	isCompleted: boolean;
 }
 
+// constants for classes
+const taskLiClass: string = 'task';
+const taskLiCheckedClass: string = `${taskLiClass}--checked`;
+const taskCheckboxClass: string = `${taskLiClass}__checkbox`;
+const taskInputClass: string = `${taskLiClass}__input`;
+const taskInputCheckedClass: string = `${taskInputClass}--checked`;
+const taskEditButtonClass: string = `${taskLiClass}__button`;
+const taskEditButtonHighlightedClass: string = `${taskEditButtonClass}--highlight`;
+const taskRemoveButtonClass: string = `${taskLiClass}__button`;
+
+// constants for ids
+const createTaskIds = {
+	submitNewTaskForm: 'create-task',
+	submitNewTaskInput: 'create-task__input'
+};
+const taskListId: string = 'task-list';
+const progressBarIds = {
+	progressBar: 'progressbar__progress',
+	totalTasksNumber: 'progressbar__number--total',
+	completedTasksNumber: 'progressbar__number--complited'
+};
+const removeAllCheckedTasksButtonId: string = 'remove-checked-button';
+
+// state to check if user is editing task
+let isEditing: boolean = false;
+
 // icons
 const removeIcon = `<svg width="16px" height="16px"	viewBox="0 0 16 16"	xmlns="http://www.w3.org/2000/svg"><g><polygon points="13.63 3.65 12.35 2.38 8 6.73 3.64 2.38 2.37 3.65 6.72 8.01 2.38 12.35 3.65 13.63 8 9.28 12.35 13.64 13.63 12.36 9.27 8.01 13.63 3.65"/></g></svg>`;
 const editIcon = `<svg width="16px" height="16px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h48v48H0z" fill="none"/><g id="Shopicon"><rect x="33.172" y="4.343" transform="matrix(0.7071 -0.7071 0.7071 0.7071 3.473 29.5565)" width="8.485" height="12.485"/><polygon points="27.172,12 4,35.172 4,44 12.829,44 38.829,18 36,20.828"/></g></svg>`;
 
 // new task form
-const $submitNewTaskForm = document.getElementById('create-task') as HTMLFormElement | null;
-const $submitNewTaskInput = document.getElementById('create-task__input') as HTMLInputElement | null;
+const $submitNewTaskForm = document.getElementById(createTaskIds.submitNewTaskForm) as HTMLFormElement | null;
+const $submitNewTaskInput = document.getElementById(createTaskIds.submitNewTaskInput) as HTMLInputElement | null;
 
 // list of tasks
-const $taskList = document.getElementById('task-list') as HTMLUListElement | null;
+const $taskList = document.getElementById(taskListId) as HTMLUListElement | null;
 
 // get existing tasks from localstorage
 let tasks: ITask[] = getTasksFromLocalStorage();
 tasks.forEach(createTask);
 
 // progress bar and progress counts
-const $progressBar = document.getElementById('progressbar__progress') as HTMLDivElement | null;
-const $totalTasksNumber = document.getElementById('progressbar__number--total') as HTMLSpanElement | null;
-const $completedTasksNumber = document.getElementById('progressbar__number--complited') as HTMLSpanElement | null;
+const $progressBar = document.getElementById(progressBarIds.progressBar) as HTMLDivElement | null;
+const $totalTasksNumber = document.getElementById(progressBarIds.totalTasksNumber) as HTMLSpanElement | null;
+const $completedTasksNumber = document.getElementById(progressBarIds.completedTasksNumber) as HTMLSpanElement | null;
 
 let totalTasksCount: number;
 let completedTasksCount: number;
@@ -32,7 +58,7 @@ let completedTasksCount: number;
 updateProgressBar();
 
 // remove all checked tasks button
-const $removeAllCheckedTasksButton = document.getElementById('remove-checked-button') as HTMLButtonElement | null;
+const $removeAllCheckedTasksButton = document.getElementById(removeAllCheckedTasksButtonId) as HTMLButtonElement | null;
 
 // functions to progress bar and progress counts
 function updateProgressBar(): void {
@@ -75,32 +101,31 @@ function setIsTaskCheckedToArray(task: ITask, isCompleted: boolean): void {
 	updateProgressBar();
 }
 
-// function to apply styles on checked task
+// function to apply styles on task
 function styleTaskElement(isChecked: boolean, $taskElement: HTMLLIElement) {
 	if (isChecked) {
-		$taskElement.classList.add('task--checked');
+		$taskElement.classList.add(taskLiCheckedClass);
 	} else {
-		$taskElement.classList.remove('task--checked');
+		$taskElement.classList.remove(taskLiCheckedClass);
 	}
 }
 
 function styleTaskInput(isChecked: boolean, $taskInput: HTMLInputElement) {
 	if (isChecked) {
-		$taskInput.classList.add('task__input--checked');
+		$taskInput.classList.add(taskInputCheckedClass);
 	} else {
-		$taskInput.classList.remove('task__input--checked');
+		$taskInput.classList.remove(taskInputCheckedClass);
 	}
 }
-
-let isEditing: boolean = false;
 
 // functions to update tasks list
 function createTask(task: ITask): void {
 	const $task = document.createElement('li');
-	$task.classList.add('task');
+	$task.classList.add(taskLiClass);
 
 	const $taskCheckbox = document.createElement('input');
-	$taskCheckbox.classList.add('task__checkbox');
+	$taskCheckbox.classList.add(taskCheckboxClass);
+	$taskCheckbox.type = 'checkbox';
 	$taskCheckbox.checked = task.isCompleted;
 	styleTaskElement($taskCheckbox.checked, $task);
 	$taskCheckbox.addEventListener('change', taskCheckboxClickHandler);
@@ -110,10 +135,9 @@ function createTask(task: ITask): void {
 		styleTaskInput($taskCheckbox.checked, $taskInput);
 		saveTasksToLocalStorage();
 	}
-	$taskCheckbox.type = 'checkbox';
 
 	const $taskInput = document.createElement('input');
-	$taskInput.classList.add('task__input');
+	$taskInput.classList.add(taskInputClass);
 	$taskInput.value = task.title;
 	$taskInput.disabled = true;
 	$taskInput.spellcheck = false;
@@ -124,13 +148,13 @@ function createTask(task: ITask): void {
 	}
 
 	const $editTaskButton = document.createElement('button');
-	$editTaskButton.classList.add('task__button');
+	$editTaskButton.classList.add(taskEditButtonClass);
 	$editTaskButton.innerHTML = editIcon;
 	$editTaskButton.addEventListener('click', editTaskButtonClickHandler);
 	function editTaskButtonClickHandler(): void {
 		if (!isEditing) {
-			$editTaskButton.classList.add('task__button--highlight');
-			$taskInput.classList.remove('task__input--checked');
+			$editTaskButton.classList.add(taskEditButtonHighlightedClass);
+			$taskInput.classList.remove(taskInputCheckedClass);
 			$taskInput.disabled = false;
 			$taskInput.focus();
 			isEditing = true;
@@ -138,7 +162,7 @@ function createTask(task: ITask): void {
 			if ($taskInput.value) {
 				$taskInput.disabled = true;
 				styleTaskInput($taskCheckbox.checked, $taskInput);
-				$editTaskButton.classList.remove('task__button--highlight');
+				$editTaskButton.classList.remove(taskEditButtonHighlightedClass);
 				task.title = $taskInput.value;
 				saveTasksToLocalStorage();
 				isEditing = false;
@@ -149,7 +173,7 @@ function createTask(task: ITask): void {
 	}
 
 	const $removeTaskButton = document.createElement('button');
-	$removeTaskButton.classList.add('task__button');
+	$removeTaskButton.classList.add(taskRemoveButtonClass);
 	$removeTaskButton.innerHTML = removeIcon;
 	$removeTaskButton.addEventListener('click', removeTaskButtonClickHandler);
 	function removeTaskButtonClickHandler(): void {
