@@ -142,9 +142,12 @@ function createTask(task: ITask): void {
 	$taskInput.disabled = true;
 	$taskInput.spellcheck = false;
 	styleTaskInput($taskCheckbox.checked, $taskInput);
-	$taskInput.addEventListener('blur', taskInputBlurHandler);
-	function taskInputBlurHandler() {
-		$taskInput.focus();
+	$taskInput.addEventListener('blur', () => $taskInput.focus());
+	$taskInput.addEventListener('keyup', EscOrEnterKeyUpHandler);
+	function EscOrEnterKeyUpHandler(e: KeyboardEvent) {
+		if (e.code === 'Escape' || e.code === 'Enter') {
+			editTaskButtonClickHandler();
+		}
 	}
 
 	const $editTaskButton = document.createElement('button');
@@ -153,6 +156,12 @@ function createTask(task: ITask): void {
 	$editTaskButton.addEventListener('click', editTaskButtonClickHandler);
 	function editTaskButtonClickHandler(): void {
 		if (!isEditing) {
+			const allButtons = document.querySelectorAll('button');
+			for (let i = 0; i < allButtons.length; i++) {
+				if (allButtons[i] !== $editTaskButton) {
+					allButtons[i].disabled = true;
+				}
+			}
 			$editTaskButton.classList.add(taskEditButtonHighlightedClass);
 			$taskInput.classList.remove(taskInputCheckedClass);
 			$taskInput.disabled = false;
@@ -160,6 +169,10 @@ function createTask(task: ITask): void {
 			isEditing = true;
 		} else {
 			if ($taskInput.value) {
+				const allButtons = document.querySelectorAll('button');
+				for (let i = 0; i < allButtons.length; i++) {
+					allButtons[i].disabled = false;
+				}
 				$taskInput.disabled = true;
 				styleTaskInput($taskCheckbox.checked, $taskInput);
 				$editTaskButton.classList.remove(taskEditButtonHighlightedClass);
@@ -180,7 +193,8 @@ function createTask(task: ITask): void {
 		removeTaskFromArray(task.id);
 		saveTasksToLocalStorage();
 		$taskCheckbox.removeEventListener('change', taskCheckboxClickHandler);
-		$taskInput.removeEventListener('blur', taskInputBlurHandler);
+		$taskInput.removeEventListener('blur', () => $taskInput.focus());
+		$taskInput.removeEventListener('keyup', EscOrEnterKeyUpHandler);
 		$removeTaskButton.removeEventListener('click', removeTaskButtonClickHandler);
 		$task.remove();
 	}
