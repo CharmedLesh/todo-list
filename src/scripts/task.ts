@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ITask } from './interfaces';
 
 type ID = string;
 
@@ -8,7 +7,7 @@ export class Task {
 	title: string;
 	isChecked: boolean;
 
-	constructor({ title, isChecked }: ITask) {
+	constructor({ title, isChecked }: { title: string; isChecked: boolean }) {
 		this.id = uuidv4();
 		this.title = title;
 		this.isChecked = isChecked;
@@ -16,5 +15,13 @@ export class Task {
 
 	getId(): ID {
 		return this.id;
+	}
+
+	check(): void {
+		this.isChecked = !this.isChecked;
+	}
+
+	editTitle(newTitle: string): void {
+		this.title = newTitle;
 	}
 }
