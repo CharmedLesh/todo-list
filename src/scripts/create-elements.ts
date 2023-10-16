@@ -1,29 +1,35 @@
+import { classListAdd } from './helpers/class-list-add';
+
 export class CreateElements {
-	static createLi(className?: string): HTMLLIElement {
+	static createLi(classNameOrClassNamesArray?: string | string[]): HTMLLIElement {
 		const $li = document.createElement('li');
-		if (className) {
-			$li.classList.add(className);
+		if (classNameOrClassNamesArray) {
+			classListAdd(classNameOrClassNamesArray, $li);
 		}
 		return $li;
 	}
 
-	static createCheckbox(className?: string, isChecked?: boolean): HTMLInputElement {
+	static createCheckbox(classNameOrClassNamesArray?: string | string[], isChecked?: boolean): HTMLInputElement {
 		const $checkbox = document.createElement('input');
 		$checkbox.type = 'checkbox';
 		if (isChecked) {
 			$checkbox.checked = isChecked;
 		}
-		if (className) {
-			$checkbox.classList.add(className);
+		if (classNameOrClassNamesArray) {
+			classListAdd(classNameOrClassNamesArray, $checkbox);
 		}
 		return $checkbox;
 	}
 
-	static createInput(className?: string, value?: string, isDisabled?: boolean): HTMLInputElement {
+	static createInput(
+		classNameOrClassNamesArray?: string | string[],
+		value?: string,
+		isDisabled?: boolean
+	): HTMLInputElement {
 		const $input = document.createElement('input');
 		$input.spellcheck = false;
-		if (className) {
-			$input.classList.add(className);
+		if (classNameOrClassNamesArray) {
+			classListAdd(classNameOrClassNamesArray, $input);
 		}
 		if (value) {
 			$input.value = value;
@@ -34,10 +40,14 @@ export class CreateElements {
 		return $input;
 	}
 
-	static createButton(className?: string, innerText?: string, innerIcon?: string): HTMLButtonElement {
+	static createButton(
+		classNameOrClassNamesArray?: string | string[],
+		innerText?: string,
+		innerIcon?: string
+	): HTMLButtonElement {
 		const $button = document.createElement('button');
-		if (className) {
-			$button.classList.add(className);
+		if (classNameOrClassNamesArray) {
+			classListAdd(classNameOrClassNamesArray, $button);
 		}
 		if (innerText) {
 			$button.innerHTML = innerText;
