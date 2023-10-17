@@ -1,4 +1,4 @@
-import { ITask } from './interfaces/interfaces';
+import { ITask } from '../interfaces/interfaces';
 import { LocalStorage } from './local-storage';
 import { Task } from './task';
 

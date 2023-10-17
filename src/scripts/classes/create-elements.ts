@@ -1,4 +1,4 @@
-import { addToClassNameList } from './helpers/add-to-class-name-list';
+import { addToClassNameList } from '../helpers/add-to-class-name-list';
 
 export class CreateElements {
 	static createLi(classNameOrClassNamesArray?: string | string[]): HTMLLIElement {

@@ -1,7 +1,7 @@
 import { Task } from './task';
 import { TaskList } from './task-list';
-import { createTaskElement } from './helpers/create-task-element';
 import { TaskListListener } from './task-list-listener';
+import { createTaskElement } from '../helpers/create-task-element';
 
 export class Render {
 	static renderTask(task: Task, $taskList: HTMLUListElement | null) {

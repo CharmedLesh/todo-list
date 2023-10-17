@@ -1,5 +1,5 @@
-import { Task } from '../task';
-import { CreateElements } from '../create-elements';
+import { Task } from '../classes/task';
+import { CreateElements } from '../classes/create-elements';
 import { conditionalClassName } from './conditional-class-name';
 import { classNames } from '../../constants/class-names';
 import { editIcon } from '../../constants/icons';

@@ -1,10 +1,10 @@
-import { TaskList } from './task-list';
+import { Task } from './classes/task';
+import { TaskList } from './classes/task-list';
+import { Render } from './classes/render';
 import { createTaskIds } from '../constants/ids';
 import { taskListId } from '../constants/ids';
 import { progressBarIds } from '../constants/ids';
 import { removeAllCheckedTasksButtonId } from '../constants/ids';
-import { Render } from './render';
-import { Task } from './task';
 
 // elements
 const $submitNewTaskForm = document.getElementById(createTaskIds.submitNewTaskForm) as HTMLFormElement | null;

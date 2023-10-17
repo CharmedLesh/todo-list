@@ -1,6 +1,6 @@
 import { TaskList } from './task-list';
-import { conditionalClassName } from './helpers/conditional-class-name';
-import { classNames } from '../constants/class-names';
+import { conditionalClassName } from '../helpers/conditional-class-name';
+import { classNames } from '../../constants/class-names';
 
 export class TaskListListener {
 	static addTaskListEventListener($taskList: HTMLUListElement | null, taskList: TaskList) {
