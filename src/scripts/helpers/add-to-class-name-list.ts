@@ -1,4 +1,4 @@
-export const classListAdd = (classNameOrClassNamesArray: string | string[], $element: HTMLElement) => {
+export const addToClassNameList = (classNameOrClassNamesArray: string | string[], $element: HTMLElement) => {
 	if (typeof classNameOrClassNamesArray === 'string') {
 		$element.classList.add(classNameOrClassNamesArray);
 	}

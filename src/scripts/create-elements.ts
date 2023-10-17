@@ -1,10 +1,10 @@
-import { classListAdd } from './helpers/class-list-add';
+import { addToClassNameList } from './helpers/add-to-class-name-list';
 
 export class CreateElements {
 	static createLi(classNameOrClassNamesArray?: string | string[]): HTMLLIElement {
 		const $li = document.createElement('li');
 		if (classNameOrClassNamesArray) {
-			classListAdd(classNameOrClassNamesArray, $li);
+			addToClassNameList(classNameOrClassNamesArray, $li);
 		}
 		return $li;
 	}
@@ -16,7 +16,7 @@ export class CreateElements {
 			$checkbox.checked = isChecked;
 		}
 		if (classNameOrClassNamesArray) {
-			classListAdd(classNameOrClassNamesArray, $checkbox);
+			addToClassNameList(classNameOrClassNamesArray, $checkbox);
 		}
 		return $checkbox;
 	}
@@ -29,7 +29,7 @@ export class CreateElements {
 		const $input = document.createElement('input');
 		$input.spellcheck = false;
 		if (classNameOrClassNamesArray) {
-			classListAdd(classNameOrClassNamesArray, $input);
+			addToClassNameList(classNameOrClassNamesArray, $input);
 		}
 		if (value) {
 			$input.value = value;
@@ -47,7 +47,7 @@ export class CreateElements {
 	): HTMLButtonElement {
 		const $button = document.createElement('button');
 		if (classNameOrClassNamesArray) {
-			classListAdd(classNameOrClassNamesArray, $button);
+			addToClassNameList(classNameOrClassNamesArray, $button);
 		}
 		if (innerText) {
 			$button.innerHTML = innerText;

@@ -1,25 +1,11 @@
-import { CreateElements } from './create-elements';
 import { Task } from './task';
-import { classNames } from '../constants/class-names';
-import { editIcon } from '../constants/icons';
-import { removeIcon } from '../constants/icons';
+import { TaskList } from './task-list';
+import { createTaskElement } from './helpers/create-task-element';
+import { TaskListListener } from './task-list-listener';
 
 export class Render {
 	static renderTask(task: Task, $taskList: HTMLUListElement | null) {
-		const $task = CreateElements.createLi(classNames.taskLiClass);
-		const $taskCheckbox = CreateElements.createCheckbox(classNames.taskCheckboxClass, task.isChecked);
-		const $taskInput = CreateElements.createInput(classNames.taskInputClass, task.title, true);
-		const $taskEditButton = CreateElements.createButton(
-			[classNames.taskButtonClass, classNames.taskEditButtonClass],
-			undefined,
-			editIcon
-		);
-		const $taskRemoveButton = CreateElements.createButton(
-			[classNames.taskButtonClass, classNames.taskRemoveButtonClass],
-			undefined,
-			removeIcon
-		);
-		$task.append($taskCheckbox, $taskInput, $taskEditButton, $taskRemoveButton);
+		const $task = createTaskElement(task);
 		if ($taskList) {
 			$taskList.append($task);
 		}
@@ -31,5 +17,10 @@ export class Render {
 				Render.renderTask(task, $taskList);
 			}
 		}
+	}
+
+	static renderApp(taskList: TaskList, $taskList: HTMLUListElement | null) {
+		Render.renderTaskList(taskList.tasks, $taskList);
+		TaskListListener.addTaskListEventListener($taskList, taskList);
 	}
 }

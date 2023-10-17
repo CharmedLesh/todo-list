@@ -6,6 +6,7 @@ import { removeAllCheckedTasksButtonId } from '../constants/ids';
 import { Render } from './render';
 import { Task } from './task';
 
+// elements
 const $submitNewTaskForm = document.getElementById(createTaskIds.submitNewTaskForm) as HTMLFormElement | null;
 const $submitNewTaskInput = document.getElementById(createTaskIds.submitNewTaskInput) as HTMLInputElement | null;
 const $taskList = document.getElementById(taskListId) as HTMLUListElement | null;
@@ -15,7 +16,7 @@ const $completedTasksNumber = document.getElementById(progressBarIds.completedTa
 const $removeAllCheckedTasksButton = document.getElementById(removeAllCheckedTasksButtonId) as HTMLButtonElement | null;
 
 const taskList = new TaskList();
-Render.renderTaskList(taskList.tasks, $taskList);
+Render.renderApp(taskList, $taskList);
 
 // new task submit event listener
 $submitNewTaskForm?.addEventListener('submit', e => {

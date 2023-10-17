@@ -1,17 +1,34 @@
+import { ITask } from './interfaces/interfaces';
 import { LocalStorage } from './local-storage';
 import { Task } from './task';
 
 type ID = string;
 
 export class TaskList {
-	localStorage = new LocalStorage<Task[]>({ key: 'TASKS' });
+	localStorage = new LocalStorage<ITask[]>({ key: 'TASKS' });
 	tasks: Task[];
 
-	constructor() {
-		this.tasks = this.localStorage.get() || [];
+	private initTasksArray(): Task[] {
+		const tasksFromLocalStorage: ITask[] | null = this.localStorage.get();
+		if (tasksFromLocalStorage) {
+			let taskInstanceArray = [];
+			for (const taskFromLocalStorage of tasksFromLocalStorage) {
+				const taskInstance: Task = new Task({
+					title: taskFromLocalStorage.title,
+					isChecked: taskFromLocalStorage.isChecked
+				});
+				taskInstanceArray.push(taskInstance);
+			}
+			return taskInstanceArray;
+		}
+		return [];
 	}
 
-	save(): void {
+	constructor() {
+		this.tasks = this.initTasksArray();
+	}
+
+	private save(): void {
 		this.localStorage.set(this.tasks);
 	}
 
