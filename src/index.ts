@@ -290,7 +290,7 @@ $submitNewTaskForm?.addEventListener('submit', e => {
 
 // remove all checked tasks event listener
 $removeAllCheckedTasksButton?.addEventListener('click', () => {
-	if (tasks) {
+	if (tasks.length) {
 		Tasks.removeAllCheckedTasks();
 		Render.removeAllCheckedTasks();
 	}

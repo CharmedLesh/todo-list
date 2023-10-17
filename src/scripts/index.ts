@@ -29,3 +29,11 @@ $submitNewTaskForm?.addEventListener('submit', e => {
 		$submitNewTaskInput.value = '';
 	}
 });
+
+// remove all checked tasks event listener
+$removeAllCheckedTasksButton?.addEventListener('click', () => {
+	if (taskList.tasks.length) {
+		taskList.removeAllChecked();
+		Render.unrenderAllCheckedFromTaskList($taskList);
+	}
+});

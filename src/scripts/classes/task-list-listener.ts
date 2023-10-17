@@ -3,7 +3,7 @@ import { conditionalClassName } from '../helpers/conditional-class-name';
 import { classNames } from '../../constants/class-names';
 
 export class TaskListListener {
-	static addTaskListEventListener($taskList: HTMLUListElement | null, taskList: TaskList) {
+	static addTaskListEventListener($taskList: HTMLUListElement | null, taskList: TaskList): void {
 		if ($taskList) {
 			$taskList.addEventListener('click', (e: any) => {
 				const $target = e.target;
@@ -59,7 +59,7 @@ export class TaskListListener {
 		taskIndex: number,
 		isChecked: boolean,
 		$taskInput: HTMLInputElement
-	) {
+	): void {
 		conditionalClassName(isChecked, $task, classNames.taskLiCheckedClass);
 		conditionalClassName(isChecked, $taskInput, classNames.taskInputCheckedClass);
 		taskList.check(taskList.tasks[taskIndex]);
@@ -71,7 +71,7 @@ export class TaskListListener {
 		$taskInput: HTMLInputElement,
 		taskIndex: number,
 		isChecked: boolean
-	) {
+	): void {
 		if ($taskInput.disabled) {
 			const allButtons = document.querySelectorAll('button');
 			for (let i = 0; i < allButtons.length; i++) {
@@ -104,7 +104,7 @@ export class TaskListListener {
 		$task: HTMLLIElement,
 		taskIndex: number,
 		$taskInput: HTMLInputElement
-	) {
+	): void {
 		taskList.remove(taskList.tasks[taskIndex]);
 		$taskInput.removeEventListener('blur', () => $taskInput.focus());
 		$task.remove();

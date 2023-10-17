@@ -5,7 +5,7 @@ import { classNames } from '../../constants/class-names';
 import { editIcon } from '../../constants/icons';
 import { removeIcon } from '../../constants/icons';
 
-export const createTaskElement = (task: Task) => {
+export const createTaskElement = (task: Task): HTMLLIElement => {
 	const $task = CreateElements.createLi(classNames.taskLiClass);
 	const $taskCheckbox = CreateElements.createCheckbox(classNames.taskCheckboxClass, task.isChecked);
 	conditionalClassName(task.isChecked, $task, classNames.taskLiCheckedClass);

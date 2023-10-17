@@ -1,4 +1,4 @@
-export const conditionalClassName = (condition: boolean, $element: HTMLElement, className: string) => {
+export const conditionalClassName = (condition: boolean, $element: HTMLElement, className: string): void => {
 	if (condition) {
 		$element.classList.add(className);
 	} else {
