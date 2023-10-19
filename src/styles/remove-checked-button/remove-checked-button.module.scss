@@ -1,4 +1,4 @@
-.remove-checked-button {
+.js-remove-checked-button {
 	position: relative;
 	font-size: 14px;
 	font-weight: 300;
@@ -7,7 +7,7 @@
 	align-items: flex-end;
 	padding: 8px 32px 8px 24px;
 
-	&__icon {
+	svg {
 		position: absolute;
 		right: 8px;
 		fill: $light;

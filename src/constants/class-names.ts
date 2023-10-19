@@ -1,3 +1,35 @@
+//todo list app
+const todoListClassName: string = 'js-todo-list';
+const todoListTitleClassName: string = `${todoListClassName}__title`;
+const createTaskFormClassName: string = 'js-create-task';
+const createTaskInputClassName: string = `${createTaskFormClassName}__input`;
+const createTaskButtonClassName: string = `${createTaskFormClassName}__button`;
+const taskListClassName: string = 'js-task-list';
+const todoListToolBarClassName: string = `${todoListClassName}__toolbar`;
+const progressBarClassName: string = 'js-progress-bar';
+const progressBarProgressClassName: string = `${progressBarClassName}__progress`;
+const progressBarTextClassName: string = `${progressBarClassName}__text`;
+const progressBarCompletedNumberClassName: string = `${progressBarClassName}__number-completed`;
+const progressBarTotalNumberClassName: string = `${progressBarClassName}__number-total`;
+const removeCheckedButtonClassName: string = 'js-remove-checked-button';
+
+export const todoListAppClassNames = {
+	todoListClassName: todoListClassName,
+	todoListTitleClassName: todoListTitleClassName,
+	createTaskFormClassName: createTaskFormClassName,
+	createTaskInputClassName: createTaskInputClassName,
+	createTaskButtonClassName: createTaskButtonClassName,
+	taskListClassName: taskListClassName,
+	todoListToolBarClassName: todoListToolBarClassName,
+	progressBarClassName: progressBarClassName,
+	progressBarProgressClassName: progressBarProgressClassName,
+	progressBarTextClassName: progressBarTextClassName,
+	progressBarCompletedNumberClassName: progressBarCompletedNumberClassName,
+	progressBarTotalNumberClassName: progressBarTotalNumberClassName,
+	removeCheckedButtonClassName: removeCheckedButtonClassName
+};
+
+// task list
 const taskLiClass: string = 'js-task';
 const taskLiCheckedClass: string = `${taskLiClass}--checked`;
 const taskCheckboxClass: string = `${taskLiClass}__checkbox`;
@@ -8,7 +40,7 @@ const taskButtonHighlightClass: string = `${taskButtonClass}--highlight`;
 const taskEditButtonClass: string = `${taskButtonClass}--edit-button`;
 const taskRemoveButtonClass: string = `${taskButtonClass}--remove-button`;
 
-export const classNames = {
+export const taskListClassNames = {
 	taskLiClass: taskLiClass,
 	taskLiCheckedClass: taskLiCheckedClass,
 	taskCheckboxClass: taskCheckboxClass,

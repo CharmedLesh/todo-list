@@ -93,7 +93,6 @@ class Tasks {
 		const taskIndex = tasks.findIndex(task => task.id === id);
 		tasks[taskIndex].title = title;
 		LocalStorage.saveTasksToStorage();
-		Progress.updateProgressBar();
 	}
 
 	static removeTaskById(id: string): void {

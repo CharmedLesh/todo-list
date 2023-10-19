@@ -1,21 +1,62 @@
 import { Task } from './task';
-import { TaskList } from './task-list';
-import { TaskListListener } from './task-list-listener';
-import { createTaskElement } from '../helpers/create-task-element';
 
 export class Render {
-	static renderTask(task: Task, $taskList: HTMLUListElement | null): void {
-		const $task = createTaskElement(task);
-		if ($taskList) {
-			$taskList.append($task);
+	static renderElementInBody($element: HTMLDivElement | null): void {
+		if ($element) {
+			document.body.append($element);
+		} else {
+			console.error('id for todo list not provided');
 		}
 	}
 
-	static renderTaskList(tasks: Task[], $taskList: HTMLUListElement | null): void {
+	static renderTask($task: HTMLLIElement | null, $taskList: HTMLUListElement | null): void {
 		if ($taskList) {
-			for (const task of tasks) {
-				Render.renderTask(task, $taskList);
+			if ($task) {
+				$taskList.append($task);
+			} else {
+				console.error('HTMLLIElement not provided');
 			}
+		} else {
+			console.error('HTMLUListElement not provided');
+		}
+	}
+
+	static renderTaskList(multipleTaskElements: HTMLLIElement[], $taskList: HTMLUListElement | null): void {
+		if ($taskList) {
+			for (const $task of multipleTaskElements) {
+				Render.renderTask($task, $taskList);
+			}
+		} else {
+			console.error('HTMLUListElement not provided');
+		}
+	}
+
+	static rerenderProgressBar(
+		tasks: Task[],
+		$progressBarProgress: HTMLDivElement | null,
+		$progressBarCompletedTasksNumber: HTMLSpanElement | null,
+		$progressBarTotalTasksNumber: HTMLSpanElement | null
+	): void {
+		const totalTasksCount: number = tasks.length;
+		const completedTasksCount: number = tasks.reduce((count, task) => count + (task.isChecked ? 1 : 0), 0);
+
+		if ($progressBarProgress) {
+			const progress = (completedTasksCount / totalTasksCount) * 100;
+			$progressBarProgress.style.width = `${progress}%`;
+		} else {
+			console.error('HTMLDivElement not provided');
+		}
+
+		if ($progressBarCompletedTasksNumber) {
+			$progressBarCompletedTasksNumber.innerHTML = completedTasksCount.toString();
+		} else {
+			console.error('HTMLSpanElement not provided');
+		}
+
+		if ($progressBarTotalTasksNumber) {
+			$progressBarTotalTasksNumber.innerHTML = totalTasksCount.toString();
+		} else {
+			console.error('HTMLSpanElement not provided');
 		}
 	}
 
@@ -32,11 +73,8 @@ export class Render {
 					i--;
 				}
 			}
+		} else {
+			console.error('HTMLUListElement not provided');
 		}
-	}
-
-	static renderApp(taskList: TaskList, $taskList: HTMLUListElement | null): void {
-		Render.renderTaskList(taskList.tasks, $taskList);
-		TaskListListener.addTaskListEventListener($taskList, taskList);
 	}
 }
