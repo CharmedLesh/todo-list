@@ -36,7 +36,7 @@ export class TaskList {
 			const multipleTaskElements = CreateElements.createMultipleTaskElements(this.tasks);
 			Render.renderTaskList(multipleTaskElements, this.$taskList);
 			// apply event listener to task list
-			this.addTaskListEventListener(this.$taskList);
+			this.addTaskListEventListeners(this.$taskList);
 		} else {
 			console.error('HTMLUListElement not provided');
 		}
@@ -102,7 +102,12 @@ export class TaskList {
 		this.save();
 	}
 
-	private addTaskListEventListener($taskList: HTMLUListElement): void {
+	private addTaskListEventListeners($taskList: HTMLUListElement): void {
+		this.addTaskListOnClickEventListener($taskList);
+		this.addTaskListOnKeyUpEventListener($taskList);
+	}
+
+	private addTaskListOnClickEventListener($taskList: HTMLUListElement): void {
 		$taskList.addEventListener('click', (e: any) => {
 			const $target = e.target;
 			const $task = $target.closest(`.${taskListClassNames.taskLiClass}`);
@@ -113,27 +118,27 @@ export class TaskList {
 			if ($target) {
 				// target is checkbox
 				if ($target.classList.contains(taskListClassNames.taskCheckboxClass)) {
-					this.taskCheckboxListener($task as HTMLLIElement, taskIndex, $target.checked, $taskInput);
+					this.taskCheckboxClickHandler($task as HTMLLIElement, taskIndex, $target.checked, $taskInput);
 				}
 				// target is edit button
 				if (
 					$target.classList.contains(taskListClassNames.taskEditButtonClass) ||
 					$target.closest(`.${taskListClassNames.taskEditButtonClass}`)
 				) {
-					this.taskEditButtonListener($taskEditButton, $taskInput, taskIndex, $taskCheckbox.checked);
+					this.taskEditButtonClickHandler($taskEditButton, $taskInput, taskIndex, $taskCheckbox.checked);
 				}
 				// target is remove button
 				if (
 					$target.classList.contains(taskListClassNames.taskRemoveButtonClass) ||
 					$target.closest(`.${taskListClassNames.taskRemoveButtonClass}`)
 				) {
-					this.taskRemoveButtonListener($task as HTMLLIElement, taskIndex, $taskInput);
+					this.taskRemoveButtonClickHandler($task as HTMLLIElement, taskIndex, $taskInput);
 				}
 			}
 		});
 	}
 
-	private taskCheckboxListener(
+	private taskCheckboxClickHandler(
 		$task: HTMLLIElement,
 		taskIndex: number,
 		isChecked: boolean,
@@ -146,7 +151,7 @@ export class TaskList {
 		this.check(this.tasks[taskIndex]);
 	}
 
-	private taskEditButtonListener(
+	private taskEditButtonClickHandler(
 		$taskEditButton: HTMLButtonElement,
 		$taskInput: HTMLInputElement,
 		taskIndex: number,
@@ -179,9 +184,27 @@ export class TaskList {
 		}
 	}
 
-	private taskRemoveButtonListener($task: HTMLLIElement, taskIndex: number, $taskInput: HTMLInputElement): void {
+	private taskRemoveButtonClickHandler($task: HTMLLIElement, taskIndex: number, $taskInput: HTMLInputElement): void {
 		this.remove(this.tasks[taskIndex]);
 		$taskInput.removeEventListener('blur', () => $taskInput.focus());
 		$task.remove();
 	}
+
+	private addTaskListOnKeyUpEventListener($taskList: HTMLUListElement): void {
+		$taskList.addEventListener('keyup', this.taskInputKeyUpHandler);
+	}
+
+	private taskInputKeyUpHandler = (e: any): void => {
+		if (e.code === 'Escape' || e.code === 'Enter') {
+			const $target = e.target;
+			if ($target) {
+				const $task = $target.closest(`.${taskListClassNames.taskLiClass}`);
+				const $taskCheckbox = $task.children[0] as HTMLInputElement;
+				const $taskInput = $task.children[1] as HTMLInputElement;
+				const $taskEditButton = $task.children[2] as HTMLButtonElement;
+				const taskIndex = [...$task.parentNode.children].indexOf($task);
+				this.taskEditButtonClickHandler($taskEditButton, $taskInput, taskIndex, $taskCheckbox.checked);
+			}
+		}
+	};
 }
