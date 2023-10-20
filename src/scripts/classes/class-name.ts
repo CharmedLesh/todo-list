@@ -10,6 +10,17 @@ export class ClassName {
 		}
 	}
 
+	static removeFromClassNameList(classNameOrClassNamesArray: string | string[], $element: HTMLElement): void {
+		if (typeof classNameOrClassNamesArray === 'string') {
+			$element.classList.remove(classNameOrClassNamesArray);
+		}
+		if (Array.isArray(classNameOrClassNamesArray)) {
+			for (const className of classNameOrClassNamesArray) {
+				$element.classList.remove(className);
+			}
+		}
+	}
+
 	static conditionalClassName(condition: boolean, $element: HTMLElement, className: string): void {
 		if (condition) {
 			$element.classList.add(className);

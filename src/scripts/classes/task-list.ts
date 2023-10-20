@@ -158,25 +158,39 @@ export class TaskList {
 		isChecked: boolean
 	): void {
 		if ($taskInput.disabled) {
-			const allButtons = document.querySelectorAll('button');
+			// disable all buttons
+			const allButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll('button');
 			for (let i = 0; i < allButtons.length; i++) {
 				if (allButtons[i] !== $taskEditButton) {
 					allButtons[i].disabled = true;
 				}
 			}
-			$taskEditButton.classList.add(taskListClassNames.taskButtonHighlightClass);
-			$taskInput.classList.remove(taskListClassNames.taskInputCheckedClass);
+			// disable all checkboxes
+			const allCheckboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll("input[type='checkbox']");
+			for (let i = 0; i < allCheckboxes.length; i++) {
+				allCheckboxes[i].disabled = true;
+			}
+			//
+			ClassName.addToClassNameList(taskListClassNames.taskButtonHighlightClass, $taskEditButton);
+			ClassName.removeFromClassNameList(taskListClassNames.taskInputCheckedClass, $taskInput);
 			$taskInput.disabled = false;
 			$taskInput.focus();
 		} else {
 			if ($taskInput.value) {
+				// enable all buttons
 				const allButtons = document.querySelectorAll('button');
 				for (let i = 0; i < allButtons.length; i++) {
 					allButtons[i].disabled = false;
 				}
-				$taskInput.disabled = true;
+				// enable all checkboxes
+				const allCheckboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll("input[type='checkbox']");
+				for (let i = 0; i < allCheckboxes.length; i++) {
+					allCheckboxes[i].disabled = false;
+				}
+				//
 				ClassName.conditionalClassName(isChecked, $taskInput, taskListClassNames.taskInputCheckedClass);
-				$taskEditButton.classList.remove(taskListClassNames.taskButtonHighlightClass);
+				ClassName.removeFromClassNameList(taskListClassNames.taskButtonHighlightClass, $taskEditButton);
+				$taskInput.disabled = true;
 				this.edit(this.tasks[taskIndex], $taskInput.value);
 			} else {
 				$taskInput.focus();

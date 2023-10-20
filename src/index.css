@@ -108,6 +108,9 @@
 .js-task__checkbox:active, .js-task__checkbox:focus {
   outline: none;
 }
+.js-task__checkbox:disabled {
+  cursor: not-allowed;
+}
 @media (min-width: 768px) {
   .js-task__checkbox {
     height: 16px;

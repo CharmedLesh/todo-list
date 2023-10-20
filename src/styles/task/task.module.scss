@@ -25,6 +25,10 @@
 			outline: none;
 		}
 
+		&:disabled {
+			cursor: not-allowed;
+		}
+
 		@media (min-width: 768px) {
 			height: 16px;
 			width: 5%;
