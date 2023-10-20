@@ -2,6 +2,7 @@ import { Task } from './task';
 import { ClassName } from './class-name';
 import { todoListAppClassNames, taskListClassNames } from '../../constants/class-names';
 import { editIcon, removeIcon } from '../../constants/icons';
+import { IElementsIds } from '../interfaces/interfaces';
 
 export class CreateElements {
 	static createH1(classNameOrClassNamesArray?: string | string[], id?: string, innerText?: string) {
@@ -168,16 +169,7 @@ export class CreateElements {
 		return $p;
 	}
 
-	static createTodoListApp(ids: {
-		todoListId: string;
-		createTaskFormId: string;
-		createTaskInputId: string;
-		taskListId: string;
-		progressBarProgressId: string;
-		progressBarCompletedTasksNumberId: string;
-		progressBarTotalTasksNumberId: string;
-		removeCheckedButtonId: string;
-	}): HTMLDivElement {
+	static createTodoListApp(ids: IElementsIds): HTMLDivElement {
 		// 'todo-list' block
 		const $todoList: HTMLDivElement = CreateElements.createDiv(
 			todoListAppClassNames.todoListClassNames.todoListClassName,

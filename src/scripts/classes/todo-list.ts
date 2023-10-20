@@ -3,28 +3,12 @@ import { TaskList } from './task-list';
 import { CreateElements } from './create-elements';
 import { Render } from './render';
 import { todoListAppClassNames } from '../../constants/class-names';
+import { IElements, IElementsIds } from '../interfaces/interfaces';
 
-export class InitTodoList {
+export class TodoList {
 	taskList: TaskList;
-	ids: {
-		todoListId: string;
-		createTaskFormId: string;
-		createTaskInputId: string;
-		taskListId: string;
-		progressBarProgressId: string;
-		progressBarCompletedTasksNumberId: string;
-		progressBarTotalTasksNumberId: string;
-		removeCheckedButtonId: string;
-	};
-	elements: {
-		$taskList: HTMLUListElement | null;
-		$createTaskForm: HTMLFormElement | null;
-		$createTaskInput: HTMLInputElement | null;
-		$progressBarProgress: HTMLDivElement | null;
-		$progressBarCompletedTasksNumber: HTMLSpanElement | null;
-		$progressBarTotalTasksNumber: HTMLSpanElement | null;
-		$removeAllCheckedTasksButton: HTMLButtonElement | null;
-	};
+	ids: IElementsIds;
+	elements: IElements;
 
 	private init() {
 		// set callback function for taskList to update progressbar each time taskList modified
@@ -45,16 +29,7 @@ export class InitTodoList {
 		this.init();
 	}
 
-	private initElementsIds(appId: string): {
-		todoListId: string;
-		createTaskFormId: string;
-		createTaskInputId: string;
-		taskListId: string;
-		progressBarProgressId: string;
-		progressBarCompletedTasksNumberId: string;
-		progressBarTotalTasksNumberId: string;
-		removeCheckedButtonId: string;
-	} {
+	private initElementsIds(appId: string): IElementsIds {
 		const todoListId: string = `${todoListAppClassNames.todoListClassNames.todoListClassName}--${appId}`;
 		const createTaskFormId: string = `${todoListAppClassNames.createTaskClassNames.createTaskFormClassName}--${appId}`;
 		const createTaskInputId: string = `${todoListAppClassNames.createTaskClassNames.createTaskInputClassName}--${appId}`;
@@ -76,15 +51,7 @@ export class InitTodoList {
 		return ids;
 	}
 
-	private initElementsObject(): {
-		$taskList: HTMLUListElement | null;
-		$createTaskForm: HTMLFormElement | null;
-		$createTaskInput: HTMLInputElement | null;
-		$progressBarProgress: HTMLDivElement | null;
-		$progressBarCompletedTasksNumber: HTMLSpanElement | null;
-		$progressBarTotalTasksNumber: HTMLSpanElement | null;
-		$removeAllCheckedTasksButton: HTMLButtonElement | null;
-	} {
+	private initElementsObject(): IElements {
 		const $createTaskForm: HTMLFormElement | null = document.getElementById(
 			this.ids.createTaskFormId
 		) as HTMLFormElement | null;

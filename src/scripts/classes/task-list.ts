@@ -1,10 +1,10 @@
-import { ITask } from '../interfaces/interfaces';
 import { LocalStorage } from './local-storage';
 import { Task } from './task';
 import { CreateElements } from './create-elements';
 import { ClassName } from './class-name';
 import { Render } from './render';
 import { taskListClassNames } from '../../constants/class-names';
+import { ITask } from '../interfaces/interfaces';
 
 type ID = string;
 

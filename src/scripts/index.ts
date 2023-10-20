@@ -1,3 +1,3 @@
-import { InitTodoList } from './classes/init-todo-list';
+import { TodoList } from './classes/todo-list';
 
-new InitTodoList({ appId: 'example', key: 'TASKS' });
+new TodoList({ appId: 'example', key: 'TASKS' });
