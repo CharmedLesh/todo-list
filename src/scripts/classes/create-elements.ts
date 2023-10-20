@@ -1,10 +1,23 @@
 import { Task } from './task';
-import { addToClassNameList } from '../helpers/add-to-class-name-list';
-import { conditionalClassName } from '../helpers/conditional-class-name';
+import { ClassName } from './class-name';
 import { todoListAppClassNames, taskListClassNames } from '../../constants/class-names';
 import { editIcon, removeIcon } from '../../constants/icons';
 
 export class CreateElements {
+	static createH1(classNameOrClassNamesArray?: string | string[], id?: string, innerText?: string) {
+		const $h1 = document.createElement('h1');
+		if (classNameOrClassNamesArray) {
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $h1);
+		}
+		if (id) {
+			$h1.id = id;
+		}
+		if (innerText) {
+			$h1.innerText = innerText;
+		}
+		return $h1;
+	}
+
 	static createSpan(
 		classNameOrClassNamesArray?: string | string[],
 		id?: string,
@@ -12,7 +25,7 @@ export class CreateElements {
 	): HTMLSpanElement {
 		const $span = document.createElement('span');
 		if (classNameOrClassNamesArray) {
-			addToClassNameList(classNameOrClassNamesArray, $span);
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $span);
 		}
 		if (id) {
 			$span.id = id;
@@ -30,7 +43,7 @@ export class CreateElements {
 	): HTMLFormElement {
 		const $form = document.createElement('form');
 		if (classNameOrClassNamesArray) {
-			addToClassNameList(classNameOrClassNamesArray, $form);
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $form);
 		}
 		if (id) {
 			$form.id = id;
@@ -44,7 +57,7 @@ export class CreateElements {
 	static createDiv(classNameOrClassNamesArray?: string | string[], id?: string, innerText?: string): HTMLDivElement {
 		const $div = document.createElement('div');
 		if (classNameOrClassNamesArray) {
-			addToClassNameList(classNameOrClassNamesArray, $div);
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $div);
 		}
 		if (id) {
 			$div.id = id;
@@ -58,7 +71,7 @@ export class CreateElements {
 	static createUL(classNameOrClassNamesArray?: string | string[], id?: string): HTMLUListElement {
 		const $ul = document.createElement('ul');
 		if (classNameOrClassNamesArray) {
-			addToClassNameList(classNameOrClassNamesArray, $ul);
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $ul);
 		}
 		if (id) {
 			$ul.id = id;
@@ -69,7 +82,7 @@ export class CreateElements {
 	static createLi(classNameOrClassNamesArray?: string | string[]): HTMLLIElement {
 		const $li = document.createElement('li');
 		if (classNameOrClassNamesArray) {
-			addToClassNameList(classNameOrClassNamesArray, $li);
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $li);
 		}
 		return $li;
 	}
@@ -81,7 +94,7 @@ export class CreateElements {
 			$checkbox.checked = isChecked;
 		}
 		if (classNameOrClassNamesArray) {
-			addToClassNameList(classNameOrClassNamesArray, $checkbox);
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $checkbox);
 		}
 		return $checkbox;
 	}
@@ -97,7 +110,7 @@ export class CreateElements {
 		const $input = document.createElement('input');
 		$input.spellcheck = false;
 		if (classNameOrClassNamesArray) {
-			addToClassNameList(classNameOrClassNamesArray, $input);
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $input);
 		}
 		if (id) {
 			$input.id = id;
@@ -125,7 +138,7 @@ export class CreateElements {
 	): HTMLButtonElement {
 		const $button = document.createElement('button');
 		if (classNameOrClassNamesArray) {
-			addToClassNameList(classNameOrClassNamesArray, $button);
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $button);
 		}
 		if (id) {
 			$button.id = id;
@@ -147,7 +160,7 @@ export class CreateElements {
 	static createP(classNameOrClassNamesArray?: string | string[], id?: string): HTMLParagraphElement {
 		const $p = document.createElement('p');
 		if (classNameOrClassNamesArray) {
-			addToClassNameList(classNameOrClassNamesArray, $p);
+			ClassName.addToClassNameList(classNameOrClassNamesArray, $p);
 		}
 		if (id) {
 			$p.id = id;
@@ -167,26 +180,26 @@ export class CreateElements {
 	}): HTMLDivElement {
 		// 'todo-list' block
 		const $todoList: HTMLDivElement = CreateElements.createDiv(
-			todoListAppClassNames.todoListClassName,
+			todoListAppClassNames.todoListClassNames.todoListClassName,
 			ids.todoListId
 		);
-		const $todoListTitle: HTMLDivElement = CreateElements.createDiv(
-			todoListAppClassNames.todoListTitleClassName,
+		const $todoListTitle: HTMLDivElement = CreateElements.createH1(
+			todoListAppClassNames.todoListClassNames.todoListTitleClassName,
 			undefined,
 			'TODOLIST'
 		);
 		const $todoListToolBar: HTMLDivElement = CreateElements.createDiv(
-			todoListAppClassNames.todoListToolBarClassName
+			todoListAppClassNames.todoListClassNames.todoListToolBarClassName
 		);
 
 		// 'create-task' block
 		const $createTaskForm: HTMLFormElement = CreateElements.createForm(
-			todoListAppClassNames.createTaskFormClassName,
+			todoListAppClassNames.createTaskClassNames.createTaskFormClassName,
 			ids.createTaskFormId,
 			false
 		);
 		const $createTaskInput: HTMLInputElement = CreateElements.createInput(
-			todoListAppClassNames.createTaskInputClassName,
+			todoListAppClassNames.createTaskClassNames.createTaskInputClassName,
 			ids.createTaskInputId,
 			undefined,
 			'what needs to be done?',
@@ -194,7 +207,7 @@ export class CreateElements {
 			false
 		);
 		const $createTaskButton: HTMLButtonElement = CreateElements.createButton(
-			todoListAppClassNames.createTaskButtonClassName,
+			todoListAppClassNames.createTaskClassNames.createTaskButtonClassName,
 			undefined,
 			'+'
 		);
@@ -207,20 +220,22 @@ export class CreateElements {
 		);
 
 		// 'progress-bar' block
-		const $progressBar: HTMLDivElement = CreateElements.createDiv(todoListAppClassNames.progressBarClassName);
+		const $progressBar: HTMLDivElement = CreateElements.createDiv(
+			todoListAppClassNames.progressBarClassNames.progressBarClassName
+		);
 		const $progressBarProgress: HTMLDivElement = CreateElements.createDiv(
-			todoListAppClassNames.progressBarProgressClassName,
+			todoListAppClassNames.progressBarClassNames.progressBarProgressClassName,
 			ids.progressBarProgressId
 		);
 		const $progressBarText: HTMLParagraphElement = CreateElements.createP(
-			todoListAppClassNames.progressBarTextClassName
+			todoListAppClassNames.progressBarClassNames.progressBarTextClassName
 		);
 		const $progressBarComplitedNumber: HTMLSpanElement = CreateElements.createSpan(
-			todoListAppClassNames.progressBarCompletedNumberClassName,
+			todoListAppClassNames.progressBarClassNames.progressBarCompletedNumberClassName,
 			ids.progressBarCompletedTasksNumberId
 		);
 		const $progressBarTotalNumber: HTMLSpanElement = CreateElements.createSpan(
-			todoListAppClassNames.progressBarTotalNumberClassName,
+			todoListAppClassNames.progressBarClassNames.progressBarTotalNumberClassName,
 			ids.progressBarTotalTasksNumberId
 		);
 		$progressBarText.append($progressBarComplitedNumber, ' of ', $progressBarTotalNumber, ' tasks done');
@@ -242,7 +257,7 @@ export class CreateElements {
 	static createTaskElement(task: Task): HTMLLIElement {
 		const $task = CreateElements.createLi(taskListClassNames.taskLiClass);
 		const $taskCheckbox = CreateElements.createCheckbox(taskListClassNames.taskCheckboxClass, task.isChecked);
-		conditionalClassName(task.isChecked, $task, taskListClassNames.taskLiCheckedClass);
+		ClassName.conditionalClassName(task.isChecked, $task, taskListClassNames.taskLiCheckedClass);
 		const $taskInput = CreateElements.createInput(
 			taskListClassNames.taskInputClass,
 			undefined,
@@ -251,7 +266,7 @@ export class CreateElements {
 			'text',
 			true
 		);
-		conditionalClassName(task.isChecked, $taskInput, taskListClassNames.taskInputCheckedClass);
+		ClassName.conditionalClassName(task.isChecked, $taskInput, taskListClassNames.taskInputCheckedClass);
 		$taskInput.addEventListener('blur', () => $taskInput.focus());
 		const $taskEditButton = CreateElements.createButton(
 			[taskListClassNames.taskButtonClass, taskListClassNames.taskEditButtonClass],

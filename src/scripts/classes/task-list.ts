@@ -1,10 +1,10 @@
 import { ITask } from '../interfaces/interfaces';
 import { LocalStorage } from './local-storage';
 import { Task } from './task';
-import { Render } from './render';
-import { conditionalClassName } from '../helpers/conditional-class-name';
-import { taskListClassNames } from '../../constants/class-names';
 import { CreateElements } from './create-elements';
+import { ClassName } from './class-name';
+import { Render } from './render';
+import { taskListClassNames } from '../../constants/class-names';
 
 type ID = string;
 
@@ -139,9 +139,9 @@ export class TaskList {
 		isChecked: boolean,
 		$taskInput: HTMLInputElement
 	): void {
-		conditionalClassName(isChecked, $task, taskListClassNames.taskLiCheckedClass);
+		ClassName.conditionalClassName(isChecked, $task, taskListClassNames.taskLiCheckedClass);
 		if ($taskInput.disabled) {
-			conditionalClassName(isChecked, $taskInput, taskListClassNames.taskInputCheckedClass);
+			ClassName.conditionalClassName(isChecked, $taskInput, taskListClassNames.taskInputCheckedClass);
 		}
 		this.check(this.tasks[taskIndex]);
 	}
@@ -170,7 +170,7 @@ export class TaskList {
 					allButtons[i].disabled = false;
 				}
 				$taskInput.disabled = true;
-				conditionalClassName(isChecked, $taskInput, taskListClassNames.taskInputCheckedClass);
+				ClassName.conditionalClassName(isChecked, $taskInput, taskListClassNames.taskInputCheckedClass);
 				$taskEditButton.classList.remove(taskListClassNames.taskButtonHighlightClass);
 				this.edit(this.tasks[taskIndex], $taskInput.value);
 			} else {

@@ -1,5 +1,5 @@
 @import './styles/styles.scss';
-@import './styles/app/app.module.scss';
+@import './styles/todo-list/todo-list.module.scss';
 @import './styles/create-task/create-task.module.scss';
 @import './styles/task/task.module.scss';
 @import './styles/progressbar/progressbar.module.scss';
@@ -17,6 +17,7 @@
 body {
 	margin: 0;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;

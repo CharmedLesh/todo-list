@@ -1,4 +1,4 @@
-//todo list app
+// todo list
 const todoListClassName: string = 'js-todo-list';
 const todoListTitleClassName: string = `${todoListClassName}__title`;
 const createTaskFormClassName: string = 'js-create-task';
@@ -14,18 +14,24 @@ const progressBarTotalNumberClassName: string = `${progressBarClassName}__number
 const removeCheckedButtonClassName: string = 'js-remove-checked-button';
 
 export const todoListAppClassNames = {
-	todoListClassName: todoListClassName,
-	todoListTitleClassName: todoListTitleClassName,
-	createTaskFormClassName: createTaskFormClassName,
-	createTaskInputClassName: createTaskInputClassName,
-	createTaskButtonClassName: createTaskButtonClassName,
+	todoListClassNames: {
+		todoListClassName: todoListClassName,
+		todoListTitleClassName: todoListTitleClassName,
+		todoListToolBarClassName: todoListToolBarClassName
+	},
+	createTaskClassNames: {
+		createTaskFormClassName: createTaskFormClassName,
+		createTaskInputClassName: createTaskInputClassName,
+		createTaskButtonClassName: createTaskButtonClassName
+	},
 	taskListClassName: taskListClassName,
-	todoListToolBarClassName: todoListToolBarClassName,
-	progressBarClassName: progressBarClassName,
-	progressBarProgressClassName: progressBarProgressClassName,
-	progressBarTextClassName: progressBarTextClassName,
-	progressBarCompletedNumberClassName: progressBarCompletedNumberClassName,
-	progressBarTotalNumberClassName: progressBarTotalNumberClassName,
+	progressBarClassNames: {
+		progressBarClassName: progressBarClassName,
+		progressBarProgressClassName: progressBarProgressClassName,
+		progressBarTextClassName: progressBarTextClassName,
+		progressBarCompletedNumberClassName: progressBarCompletedNumberClassName,
+		progressBarTotalNumberClassName: progressBarTotalNumberClassName
+	},
 	removeCheckedButtonClassName: removeCheckedButtonClassName
 };
 

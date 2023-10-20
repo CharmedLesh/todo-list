@@ -42,7 +42,11 @@ export class Render {
 
 		if ($progressBarProgress) {
 			const progress = (completedTasksCount / totalTasksCount) * 100;
-			$progressBarProgress.style.width = `${progress}%`;
+			if (progress) {
+				$progressBarProgress.style.width = `${progress}%`;
+			} else {
+				$progressBarProgress.style.width = `0%`;
+			}
 		} else {
 			console.error('HTMLDivElement not provided');
 		}
