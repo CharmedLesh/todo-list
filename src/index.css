@@ -1,11 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;800&family=Roboto&display=swap");
-.js-todo-list {
+.todo-list {
   border: 2px solid #499dc2;
   padding: 0px 34px 16px;
-  margin: 20px 0px;
   background-color: #fcfcfc;
 }
-.js-todo-list__title {
+.todo-list__title {
   font-family: "Noto Sans", sans-serif;
   text-align: center;
   font-weight: 800;
@@ -14,71 +13,71 @@
   margin: 16px 0px;
   text-shadow: #499dc2 0px 0 2px;
 }
-.js-todo-list__toolbar {
+.todo-list__toolbar {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 @media (min-width: 768px) {
-  .js-todo-list__toolbar {
+  .todo-list__toolbar {
     flex-direction: row;
     justify-content: space-between;
   }
 }
 @media (min-width: 768px) {
-  .js-todo-list {
+  .todo-list {
     width: 618px;
   }
 }
 
-.js-create-task {
+.create-task {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.js-create-task__input {
+.create-task__input {
   width: calc(100% - 42px);
   padding: 6px 0px;
   font-size: 16px;
   text-align: center;
   border: 1px solid #55a1c7;
 }
-.js-create-task__input::-moz-placeholder {
+.create-task__input::-moz-placeholder {
   color: #a8aaa7;
   font-style: italic;
 }
-.js-create-task__input::placeholder {
+.create-task__input::placeholder {
   color: #a8aaa7;
   font-style: italic;
 }
-.js-create-task__input:focus {
+.create-task__input:focus {
   outline: 2px solid #55a1c7;
 }
-.js-create-task__input:focus::-moz-placeholder {
+.create-task__input:focus::-moz-placeholder {
   color: transparent;
 }
-.js-create-task__input:focus::placeholder {
+.create-task__input:focus::placeholder {
   color: transparent;
 }
 @media (min-width: 768px) {
-  .js-create-task__input {
+  .create-task__input {
     width: calc(100% - 60px);
     padding: 12.6px 0px;
     font-size: 20px;
   }
 }
-.js-create-task__button {
+.create-task__button {
   width: 32px;
   height: 32px;
   color: #fcfcfc;
   font-size: 16px;
 }
-.js-create-task__button:active {
+.create-task__button:active {
   outline: 2px solid #a8aaa7;
 }
 @media (min-width: 768px) {
-  .js-create-task__button {
+  .create-task__button {
     width: 50px;
     height: 50px;
     font-size: 20px;
@@ -161,21 +160,21 @@
   }
 }
 
-.js-progress-bar {
+.progressbar {
   position: relative;
   border: 1px solid #a8aaa7;
   width: 100%;
   height: 24px;
   margin-bottom: 20px;
 }
-.js-progress-bar__progress {
+.progressbar__progress {
   position: absolute;
   height: 100%;
   background-color: #97e44b;
   z-index: 1;
   transition: 200ms;
 }
-.js-progress-bar__text {
+.progressbar__text {
   margin: 0px;
   position: absolute;
   z-index: 2;
@@ -187,22 +186,22 @@
   font-size: 12px;
 }
 @media (min-width: 768px) {
-  .js-progress-bar__text__text {
+  .progressbar__text__text {
     font-size: 16px;
   }
 }
-.js-progress-bar__number {
+.progressbar__number {
   color: #545653;
 }
 @media (min-width: 768px) {
-  .js-progress-bar {
+  .progressbar {
     width: 250px;
     height: 32px;
     margin-bottom: 0px;
   }
 }
 
-.js-remove-checked-button {
+.remove-checked-button {
   position: relative;
   font-size: 14px;
   font-weight: 300;
@@ -211,19 +210,19 @@
   align-items: flex-end;
   padding: 8px 32px 8px 24px;
 }
-.js-remove-checked-button svg {
+.remove-checked-button svg {
   position: absolute;
   right: 8px;
   fill: #fcfcfc;
 }
-.js-remove-checked-button:active {
+.remove-checked-button:active {
   outline: 2px solid #a8aaa7;
 }
 @media (min-width: 768px) {
-  .js-remove-checked-button {
+  .remove-checked-button {
     font-size: 16px;
   }
-  .js-remove-checked-button svg {
+  .remove-checked-button svg {
     width: 20px;
     height: 20px;
   }
@@ -241,7 +240,6 @@
 body {
   margin: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
