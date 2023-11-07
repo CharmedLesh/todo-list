@@ -8,8 +8,10 @@ export class LocalStorage<T> {
 	set(data: T): void {
 		try {
 			localStorage.setItem(this.key, JSON.stringify(data));
-		} catch (e) {
-			console.error(e);
+		} catch (error) {
+			if (error instanceof Error) {
+				console.error(error.message);
+			}
 		}
 	}
 
@@ -17,8 +19,10 @@ export class LocalStorage<T> {
 		try {
 			const data = localStorage.getItem(this.key);
 			return data ? JSON.parse(data) : null;
-		} catch (e) {
-			console.error(e);
+		} catch (error) {
+			if (error instanceof Error) {
+				console.error(error.message);
+			}
 			return null;
 		}
 	}

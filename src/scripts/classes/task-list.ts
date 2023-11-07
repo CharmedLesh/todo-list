@@ -31,14 +31,19 @@ export class TaskList {
 	}
 
 	private init() {
-		if (this.$taskList) {
+		try {
+			if (!this.$taskList) {
+				throw new Error('HTMLUListElement not provided');
+			}
 			// render task list
 			const multipleTaskElements = CreateElements.createMultipleTaskElements(this.tasks);
 			Render.renderTaskList(multipleTaskElements, this.$taskList);
 			// apply event listener to task list
 			this.addTaskListEventListeners(this.$taskList);
-		} else {
-			console.error('HTMLUListElement not provided');
+		} catch (error) {
+			if (error instanceof Error) {
+				console.error(error.message);
+			}
 		}
 	}
 

@@ -39,14 +39,14 @@ export class TodoList {
 		const progressBarTotalTasksNumberId: string = `${todoListAppClassNames.progressBarClassNames.progressBarTotalNumberClassName}--${appId}`;
 		const removeCheckedButtonId: string = `${todoListAppClassNames.removeCheckedButtonClassName}--${appId}`;
 		const ids = {
-			todoListId: todoListId,
-			createTaskFormId: createTaskFormId,
-			createTaskInputId: createTaskInputId,
-			taskListId: taskListId,
-			progressBarProgressId: progressBarProgressId,
-			progressBarCompletedTasksNumberId: progressBarCompletedTasksNumberId,
-			progressBarTotalTasksNumberId: progressBarTotalTasksNumberId,
-			removeCheckedButtonId: removeCheckedButtonId
+			todoListId,
+			createTaskFormId,
+			createTaskInputId,
+			taskListId,
+			progressBarProgressId,
+			progressBarCompletedTasksNumberId,
+			progressBarTotalTasksNumberId,
+			removeCheckedButtonId
 		};
 		return ids;
 	}
@@ -74,13 +74,13 @@ export class TodoList {
 			this.ids.removeCheckedButtonId
 		) as HTMLButtonElement | null;
 		const elements = {
-			$taskList: $taskList,
-			$createTaskForm: $createTaskForm,
-			$createTaskInput: $createTaskInput,
-			$progressBarProgress: $progressBarProgress,
-			$progressBarCompletedTasksNumber: $progressBarCompletedTasksNumber,
-			$progressBarTotalTasksNumber: $progressBarTotalTasksNumber,
-			$removeAllCheckedTasksButton: $removeAllCheckedTasksButton
+			$taskList,
+			$createTaskForm,
+			$createTaskInput,
+			$progressBarProgress,
+			$progressBarCompletedTasksNumber,
+			$progressBarTotalTasksNumber,
+			$removeAllCheckedTasksButton
 		};
 		return elements;
 	}
@@ -98,52 +98,58 @@ export class TodoList {
 	}
 
 	private initProgressBarRender() {
-		if (this.elements.$progressBarTotalTasksNumber) {
-			if (this.elements.$progressBarCompletedTasksNumber) {
-				if (this.elements.$progressBarProgress) {
-					Render.rerenderProgressBar(
-						this.taskList.tasks,
-						this.elements.$progressBarProgress,
-						this.elements.$progressBarCompletedTasksNumber,
-						this.elements.$progressBarTotalTasksNumber
-					);
-				} else {
-					console.error(`${this.ids.progressBarProgressId} not found`);
-				}
-			} else {
-				console.error(`${this.ids.progressBarCompletedTasksNumberId} not found`);
+		try {
+			if (!this.elements.$progressBarTotalTasksNumber) {
+				throw new Error(`${this.ids.progressBarTotalTasksNumberId} not found`);
 			}
-		} else {
-			console.error(`${this.ids.progressBarTotalTasksNumberId} not found`);
+			if (!this.elements.$progressBarCompletedTasksNumber) {
+				throw new Error(`${this.ids.progressBarCompletedTasksNumberId} not found`);
+			}
+			if (!this.elements.$progressBarProgress) {
+				throw new Error(`${this.ids.progressBarProgressId} not found`);
+			}
+
+			Render.rerenderProgressBar(
+				this.taskList.tasks,
+				this.elements.$progressBarProgress,
+				this.elements.$progressBarCompletedTasksNumber,
+				this.elements.$progressBarTotalTasksNumber
+			);
+		} catch (error) {
+			if (error instanceof Error) {
+				console.error(error.message);
+			}
 		}
 	}
 
 	private initEventListeners() {
-		if (this.elements.$taskList) {
-			if (this.elements.$createTaskForm) {
-				if (this.elements.$createTaskInput) {
-					this.applyListenerOnSubmitNewTaskEvent(
-						this.elements.$createTaskForm,
-						this.elements.$createTaskInput,
-						this.elements.$taskList
-					);
-				} else {
-					console.error(`${this.ids.createTaskInputId} not found`);
-				}
-			} else {
-				console.error(`${this.ids.createTaskFormId} not found`);
+		try {
+			if (!this.elements.$taskList) {
+				throw new Error(`${this.ids.taskListId} not found`);
+			}
+			if (!this.elements.$createTaskForm) {
+				throw new Error(`${this.ids.createTaskFormId} not found`);
+			}
+			if (!this.elements.$createTaskInput) {
+				throw new Error(`${this.ids.createTaskInputId} not found`);
+			}
+			if (!this.elements.$removeAllCheckedTasksButton) {
+				throw new Error(`${this.ids.removeCheckedButtonId} not found`);
 			}
 
-			if (this.elements.$removeAllCheckedTasksButton) {
-				this.applyListenerOnRemoveAllCheckedTasksEvent(
-					this.elements.$removeAllCheckedTasksButton,
-					this.elements.$taskList
-				);
-			} else {
-				console.error(`${this.ids.removeCheckedButtonId} not found`);
+			this.applyListenerOnSubmitNewTaskEvent(
+				this.elements.$createTaskForm,
+				this.elements.$createTaskInput,
+				this.elements.$taskList
+			);
+			this.applyListenerOnRemoveAllCheckedTasksEvent(
+				this.elements.$removeAllCheckedTasksButton,
+				this.elements.$taskList
+			);
+		} catch (error) {
+			if (error instanceof Error) {
+				console.error(error.message);
 			}
-		} else {
-			console.error(`${this.ids.taskListId} not found`);
 		}
 	}
 
