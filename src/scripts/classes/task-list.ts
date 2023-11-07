@@ -14,6 +14,13 @@ export class TaskList {
 	tasks: Task[];
 	private onTaskListModified: (() => void) | null = null;
 
+	constructor({ key, $taskList }: { key: string; $taskList: HTMLUListElement | null }) {
+		this.localStorage = new LocalStorage<ITask[]>({ key });
+		this.$taskList = $taskList;
+		this.tasks = this.initTasksArray();
+		this.init();
+	}
+
 	private initTasksArray(): Task[] {
 		const tasksFromLocalStorage: ITask[] | null = this.localStorage.get();
 		if (tasksFromLocalStorage) {
@@ -45,13 +52,6 @@ export class TaskList {
 				console.error(error.message);
 			}
 		}
-	}
-
-	constructor({ key, $taskList }: { key: string; $taskList: HTMLUListElement | null }) {
-		this.localStorage = new LocalStorage<ITask[]>({ key });
-		this.$taskList = $taskList;
-		this.tasks = this.initTasksArray();
-		this.init();
 	}
 
 	// callback function to call when tasks are modified

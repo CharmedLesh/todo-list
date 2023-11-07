@@ -10,15 +10,6 @@ export class TodoList {
 	ids: IElementsIds;
 	elements: IElements;
 
-	private init() {
-		// set callback function for taskList to update progressbar each time taskList modified
-		this.initCallbackToRerenderProgressBarOnTaskListChange();
-		// update progress bar
-		this.initProgressBarRender();
-		// apply event listeners
-		this.initEventListeners();
-	}
-
 	constructor({ appId, key }: { appId: string; key: string }) {
 		// need to render skeleton before init
 		this.ids = this.initElementsIds(appId);
@@ -27,6 +18,15 @@ export class TodoList {
 		this.elements = this.initElementsObject();
 		this.taskList = new TaskList({ key: key, $taskList: this.elements.$taskList });
 		this.init();
+	}
+
+	private init() {
+		// set callback function for taskList to update progressbar each time taskList modified
+		this.initCallbackToRerenderProgressBarOnTaskListChange();
+		// update progress bar
+		this.initProgressBarRender();
+		// apply event listeners
+		this.initEventListeners();
 	}
 
 	private initElementsIds(appId: string): IElementsIds {
