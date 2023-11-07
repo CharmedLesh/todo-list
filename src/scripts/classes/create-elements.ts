@@ -2,7 +2,6 @@ import { Task } from './task';
 import { ClassName } from './class-name';
 import { todoListAppClassNames, taskListClassNames } from '../../constants/class-names';
 import { editIcon, removeIcon } from '../../constants/icons';
-import { IElementsIds } from '../interfaces/interfaces';
 
 export class CreateElements {
 	static createH1(classNameOrClassNamesArray?: string | string[], id?: string, innerText?: string) {
@@ -169,11 +168,11 @@ export class CreateElements {
 		return $p;
 	}
 
-	static createTodoListApp(ids: IElementsIds): HTMLDivElement {
+	static createTodoListApp(appId: string): HTMLDivElement {
 		// 'todo-list' block
 		const $todoList: HTMLDivElement = CreateElements.createDiv(
 			todoListAppClassNames.todoListClassNames.todoListClassName,
-			ids.todoListId
+			appId
 		);
 		const $todoListTitle: HTMLDivElement = CreateElements.createH1(
 			todoListAppClassNames.todoListClassNames.todoListTitleClassName,
@@ -187,12 +186,12 @@ export class CreateElements {
 		// 'create-task' block
 		const $createTaskForm: HTMLFormElement = CreateElements.createForm(
 			todoListAppClassNames.createTaskClassNames.createTaskFormClassName,
-			ids.createTaskFormId,
+			undefined,
 			false
 		);
 		const $createTaskInput: HTMLInputElement = CreateElements.createInput(
 			todoListAppClassNames.createTaskClassNames.createTaskInputClassName,
-			ids.createTaskInputId,
+			undefined,
 			undefined,
 			'what needs to be done?',
 			'text',
@@ -206,10 +205,7 @@ export class CreateElements {
 		$createTaskForm.append($createTaskInput, $createTaskButton);
 
 		// 'task-list' block
-		const $taskList: HTMLUListElement = CreateElements.createUL(
-			todoListAppClassNames.taskListClassName,
-			ids.taskListId
-		);
+		const $taskList: HTMLUListElement = CreateElements.createUL(todoListAppClassNames.taskListClassName, undefined);
 
 		// 'progress-bar' block
 		const $progressBar: HTMLDivElement = CreateElements.createDiv(
@@ -217,18 +213,18 @@ export class CreateElements {
 		);
 		const $progressBarProgress: HTMLDivElement = CreateElements.createDiv(
 			todoListAppClassNames.progressBarClassNames.progressBarProgressClassName,
-			ids.progressBarProgressId
+			undefined
 		);
 		const $progressBarText: HTMLParagraphElement = CreateElements.createP(
 			todoListAppClassNames.progressBarClassNames.progressBarTextClassName
 		);
 		const $progressBarComplitedNumber: HTMLSpanElement = CreateElements.createSpan(
 			todoListAppClassNames.progressBarClassNames.progressBarCompletedNumberClassName,
-			ids.progressBarCompletedTasksNumberId
+			undefined
 		);
 		const $progressBarTotalNumber: HTMLSpanElement = CreateElements.createSpan(
 			todoListAppClassNames.progressBarClassNames.progressBarTotalNumberClassName,
-			ids.progressBarTotalTasksNumberId
+			undefined
 		);
 		$progressBarText.append($progressBarComplitedNumber, ' of ', $progressBarTotalNumber, ' tasks done');
 		$progressBar.append($progressBarProgress, $progressBarText);
@@ -236,7 +232,7 @@ export class CreateElements {
 		// 'remove-checked-button' block
 		const $removeCheckedButton: HTMLButtonElement = CreateElements.createButton(
 			todoListAppClassNames.removeCheckedButtonClassName,
-			ids.removeCheckedButtonId,
+			undefined,
 			'Remove checked',
 			removeIcon
 		);

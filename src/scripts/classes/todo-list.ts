@@ -3,19 +3,16 @@ import { TaskList } from './task-list';
 import { CreateElements } from './create-elements';
 import { Render } from './render';
 import { todoListAppClassNames } from '../../constants/class-names';
-import { IElements, IElementsIds } from '../interfaces/interfaces';
+import { IElements } from '../interfaces/interfaces';
 
 export class TodoList {
 	taskList: TaskList;
-	ids: IElementsIds;
 	elements: IElements;
 
 	constructor({ appId, key }: { appId: string; key: string }) {
-		// need to render skeleton before init
-		this.ids = this.initElementsIds(appId);
-		const $todoList = CreateElements.createTodoListApp(this.ids);
+		const $todoList = CreateElements.createTodoListApp(appId);
 		Render.renderElementInBody($todoList);
-		this.elements = this.initElementsObject();
+		this.elements = this.initElementsObject(appId);
 		this.taskList = new TaskList({ key: key, $taskList: this.elements.$taskList });
 		this.init();
 	}
@@ -29,50 +26,28 @@ export class TodoList {
 		this.initEventListeners();
 	}
 
-	private initElementsIds(appId: string): IElementsIds {
-		const todoListId: string = `${todoListAppClassNames.todoListClassNames.todoListClassName}--${appId}`;
-		const createTaskFormId: string = `${todoListAppClassNames.createTaskClassNames.createTaskFormClassName}--${appId}`;
-		const createTaskInputId: string = `${todoListAppClassNames.createTaskClassNames.createTaskInputClassName}--${appId}`;
-		const taskListId: string = `${todoListAppClassNames.taskListClassName}--${appId}`;
-		const progressBarProgressId: string = `${todoListAppClassNames.progressBarClassNames.progressBarProgressClassName}--${appId}`;
-		const progressBarCompletedTasksNumberId: string = `${todoListAppClassNames.progressBarClassNames.progressBarCompletedNumberClassName}--${appId}`;
-		const progressBarTotalTasksNumberId: string = `${todoListAppClassNames.progressBarClassNames.progressBarTotalNumberClassName}--${appId}`;
-		const removeCheckedButtonId: string = `${todoListAppClassNames.removeCheckedButtonClassName}--${appId}`;
-		const ids = {
-			todoListId,
-			createTaskFormId,
-			createTaskInputId,
-			taskListId,
-			progressBarProgressId,
-			progressBarCompletedTasksNumberId,
-			progressBarTotalTasksNumberId,
-			removeCheckedButtonId
-		};
-		return ids;
-	}
-
-	private initElementsObject(): IElements {
-		const $createTaskForm: HTMLFormElement | null = document.getElementById(
-			this.ids.createTaskFormId
+	private initElementsObject(appId: string): IElements {
+		const $app = document.getElementById(`js-todo-list--${appId}`) as HTMLDivElement | null;
+		const $taskList = $app?.querySelector(todoListAppClassNames.taskListClassName) as HTMLUListElement | null;
+		const $createTaskForm = $app?.querySelector(
+			todoListAppClassNames.createTaskClassNames.createTaskFormClassName
 		) as HTMLFormElement | null;
-		const $createTaskInput: HTMLInputElement | null = document.getElementById(
-			this.ids.createTaskInputId
+		const $createTaskInput = $app?.querySelector(
+			todoListAppClassNames.createTaskClassNames.createTaskInputClassName
 		) as HTMLInputElement | null;
-		const $taskList: HTMLUListElement | null = document.getElementById(
-			this.ids.taskListId
-		) as HTMLUListElement | null;
-		const $progressBarProgress: HTMLDivElement | null = document.getElementById(
-			this.ids.progressBarProgressId
+		const $progressBarProgress = $app?.querySelector(
+			todoListAppClassNames.progressBarClassNames.progressBarProgressClassName
 		) as HTMLDivElement | null;
-		const $progressBarCompletedTasksNumber: HTMLSpanElement | null = document.getElementById(
-			this.ids.progressBarCompletedTasksNumberId
-		);
-		const $progressBarTotalTasksNumber: HTMLSpanElement | null = document.getElementById(
-			this.ids.progressBarTotalTasksNumberId
-		);
-		const $removeAllCheckedTasksButton: HTMLButtonElement | null = document.getElementById(
-			this.ids.removeCheckedButtonId
+		const $progressBarCompletedTasksNumber = $app?.querySelector(
+			todoListAppClassNames.progressBarClassNames.progressBarCompletedNumberClassName
+		) as HTMLSpanElement | null;
+		const $progressBarTotalTasksNumber = $app?.querySelector(
+			todoListAppClassNames.progressBarClassNames.progressBarTotalNumberClassName
+		) as HTMLSpanElement | null;
+		const $removeAllCheckedTasksButton = $app?.querySelector(
+			todoListAppClassNames.removeCheckedButtonClassName
 		) as HTMLButtonElement | null;
+
 		const elements = {
 			$taskList,
 			$createTaskForm,
@@ -100,13 +75,13 @@ export class TodoList {
 	private initProgressBarRender() {
 		try {
 			if (!this.elements.$progressBarTotalTasksNumber) {
-				throw new Error(`${this.ids.progressBarTotalTasksNumberId} not found`);
+				throw new Error('Element not found');
 			}
 			if (!this.elements.$progressBarCompletedTasksNumber) {
-				throw new Error(`${this.ids.progressBarCompletedTasksNumberId} not found`);
+				throw new Error('Element not found');
 			}
 			if (!this.elements.$progressBarProgress) {
-				throw new Error(`${this.ids.progressBarProgressId} not found`);
+				throw new Error('Element not found');
 			}
 
 			Render.rerenderProgressBar(
@@ -125,16 +100,16 @@ export class TodoList {
 	private initEventListeners() {
 		try {
 			if (!this.elements.$taskList) {
-				throw new Error(`${this.ids.taskListId} not found`);
+				throw new Error('Element not found');
 			}
 			if (!this.elements.$createTaskForm) {
-				throw new Error(`${this.ids.createTaskFormId} not found`);
+				throw new Error('Element not found');
 			}
 			if (!this.elements.$createTaskInput) {
-				throw new Error(`${this.ids.createTaskInputId} not found`);
+				throw new Error('Element not found');
 			}
 			if (!this.elements.$removeAllCheckedTasksButton) {
-				throw new Error(`${this.ids.removeCheckedButtonId} not found`);
+				throw new Error('Element not found');
 			}
 
 			this.applyListenerOnSubmitNewTaskEvent(
