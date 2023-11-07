@@ -53,27 +53,22 @@ export class Render {
 		$progressBarTotalTasksNumber: HTMLSpanElement | null
 	): void {
 		try {
-			const totalTasksCount: number = tasks.length;
-			const completedTasksCount: number = tasks.reduce((count, task) => count + (task.isChecked ? 1 : 0), 0);
-
-			if ($progressBarProgress) {
-				const progress = (completedTasksCount / totalTasksCount) * 100;
-				$progressBarProgress.style.width = progress ? `${progress}%` : '0%';
-			} else {
+			if (!$progressBarProgress) {
 				throw new Error('Progress element not provided');
 			}
-
-			if ($progressBarCompletedTasksNumber) {
-				$progressBarCompletedTasksNumber.innerHTML = completedTasksCount.toString();
-			} else {
+			if (!$progressBarCompletedTasksNumber) {
 				throw new Error('Completed tasks element not provided');
 			}
-
-			if ($progressBarTotalTasksNumber) {
-				$progressBarTotalTasksNumber.innerHTML = totalTasksCount.toString();
-			} else {
+			if (!$progressBarTotalTasksNumber) {
 				throw new Error('Total tasks element not provided');
 			}
+
+			const totalTasksCount: number = tasks.length;
+			const completedTasksCount: number = tasks.reduce((count, task) => count + (task.isChecked ? 1 : 0), 0);
+			const progress = (completedTasksCount / totalTasksCount) * 100;
+			$progressBarProgress.style.width = progress ? `${progress}%` : '0%';
+			$progressBarCompletedTasksNumber.innerHTML = completedTasksCount.toString();
+			$progressBarTotalTasksNumber.innerHTML = totalTasksCount.toString();
 		} catch (error) {
 			if (error instanceof Error) {
 				Logger.logError(error.message);
