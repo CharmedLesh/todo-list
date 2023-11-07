@@ -1,15 +1,16 @@
 import { Task } from './task';
+import { Logger } from './logger';
 
 export class Render {
 	static renderElementInBody($element: HTMLDivElement | null): void {
 		try {
 			if (!$element) {
-				throw new Error('id for todo list not provided');
+				throw new Error('Element not porvided');
 			}
 			document.body.append($element);
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 		}
 	}
@@ -25,7 +26,7 @@ export class Render {
 			$taskList.append($task);
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 		}
 	}
@@ -40,7 +41,7 @@ export class Render {
 			}
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 		}
 	}
@@ -75,7 +76,7 @@ export class Render {
 			}
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 		}
 	}
@@ -99,7 +100,7 @@ export class Render {
 			}
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 		}
 	}

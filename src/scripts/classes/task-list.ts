@@ -3,6 +3,7 @@ import { Task } from './task';
 import { CreateElements } from './create-elements';
 import { ClassName } from './class-name';
 import { Render } from './render';
+import { Logger } from './logger';
 import { taskListClassNames } from '../../constants/class-names';
 import { ITask } from '../interfaces/interfaces';
 
@@ -49,7 +50,7 @@ export class TaskList {
 			this.addTaskListEventListeners(this.$taskList);
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 		}
 	}

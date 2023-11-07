@@ -172,7 +172,7 @@ export class CreateElements {
 		// 'todo-list' block
 		const $todoList: HTMLDivElement = CreateElements.createDiv(
 			todoListAppClassNames.todoListClassNames.todoListClassName,
-			appId
+			`${todoListAppClassNames.todoListClassNames.todoListClassName}--${appId}`
 		);
 		const $todoListTitle: HTMLDivElement = CreateElements.createH1(
 			todoListAppClassNames.todoListClassNames.todoListTitleClassName,

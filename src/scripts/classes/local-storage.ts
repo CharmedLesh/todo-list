@@ -1,3 +1,5 @@
+import { Logger } from './logger';
+
 export class LocalStorage<T> {
 	private readonly key: string;
 
@@ -10,7 +12,7 @@ export class LocalStorage<T> {
 			localStorage.setItem(this.key, JSON.stringify(data));
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 		}
 	}
@@ -21,7 +23,7 @@ export class LocalStorage<T> {
 			return data ? JSON.parse(data) : null;
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 			return null;
 		}

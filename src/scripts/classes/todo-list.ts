@@ -2,6 +2,7 @@ import { Task } from './task';
 import { TaskList } from './task-list';
 import { CreateElements } from './create-elements';
 import { Render } from './render';
+import { Logger } from './logger';
 import { todoListAppClassNames } from '../../constants/class-names';
 import { IElements } from '../interfaces/interfaces';
 
@@ -28,24 +29,24 @@ export class TodoList {
 
 	private initElementsObject(appId: string): IElements {
 		const $app = document.getElementById(`js-todo-list--${appId}`) as HTMLDivElement | null;
-		const $taskList = $app?.querySelector(todoListAppClassNames.taskListClassName) as HTMLUListElement | null;
+		const $taskList = $app?.querySelector(`.${todoListAppClassNames.taskListClassName}`) as HTMLUListElement | null;
 		const $createTaskForm = $app?.querySelector(
-			todoListAppClassNames.createTaskClassNames.createTaskFormClassName
+			`.${todoListAppClassNames.createTaskClassNames.createTaskFormClassName}`
 		) as HTMLFormElement | null;
 		const $createTaskInput = $app?.querySelector(
-			todoListAppClassNames.createTaskClassNames.createTaskInputClassName
+			`.${todoListAppClassNames.createTaskClassNames.createTaskInputClassName}`
 		) as HTMLInputElement | null;
 		const $progressBarProgress = $app?.querySelector(
-			todoListAppClassNames.progressBarClassNames.progressBarProgressClassName
+			`.${todoListAppClassNames.progressBarClassNames.progressBarProgressClassName}`
 		) as HTMLDivElement | null;
 		const $progressBarCompletedTasksNumber = $app?.querySelector(
-			todoListAppClassNames.progressBarClassNames.progressBarCompletedNumberClassName
+			`.${todoListAppClassNames.progressBarClassNames.progressBarCompletedNumberClassName}`
 		) as HTMLSpanElement | null;
 		const $progressBarTotalTasksNumber = $app?.querySelector(
-			todoListAppClassNames.progressBarClassNames.progressBarTotalNumberClassName
+			`.${todoListAppClassNames.progressBarClassNames.progressBarTotalNumberClassName}`
 		) as HTMLSpanElement | null;
 		const $removeAllCheckedTasksButton = $app?.querySelector(
-			todoListAppClassNames.removeCheckedButtonClassName
+			`.${todoListAppClassNames.removeCheckedButtonClassName}`
 		) as HTMLButtonElement | null;
 
 		const elements = {
@@ -92,7 +93,7 @@ export class TodoList {
 			);
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 		}
 	}
@@ -123,7 +124,7 @@ export class TodoList {
 			);
 		} catch (error) {
 			if (error instanceof Error) {
-				console.error(error.message);
+				Logger.logError(error.message);
 			}
 		}
 	}
